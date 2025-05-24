@@ -1,0 +1,7 @@
+# Allow all search engines to access the site
+User-agent: *
+Disallow: /private/
+Allow: /
+
+# Specify the location of your sitemap
+Sitemap: https://coontara.com/sitemap.xml
