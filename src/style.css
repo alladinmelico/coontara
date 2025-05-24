@@ -569,3 +569,101 @@ a:hover, .faq-a a:hover, footer a:hover {
     right: 8px;
   }
 }
+
+/* --- Responsive styles for kitten cards and related elements --- */
+@media (max-width: 700px) {
+  .kittens {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+  .cat-card {
+    width: 100%;
+    max-width: 420px;
+    margin: 0.5rem auto;
+    padding: 1rem 0.5rem;
+    border-radius: 1rem;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+  }
+  .cat-photos {
+    width: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: auto;
+  }
+  .cat-photos img, .highlight-photo {
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+  }
+  .cat-card h3 {
+    font-size: 1.1rem;
+  }
+  .cat-card p {
+    font-size: 0.98rem;
+  }
+  .cat-details-list {
+    font-size: 0.93rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cat-card {
+    width: 100%;
+    max-width: 98vw;
+    margin: 0.5rem auto;
+    padding: 0.7rem 0.2rem;
+    border-radius: 0.7rem;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+  }
+  .kittens {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.1rem;
+  }
+  .cat-photos {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .cat-photos img, .highlight-photo {
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+  }
+  .cat-card h3 {
+    font-size: 1rem;
+  }
+  .cat-card p {
+    font-size: 0.93rem;
+  }
+  .cat-details-list {
+    font-size: 0.89rem;
+  }
+  .faq-section {
+    padding: 1rem 0.5rem;
+    border-radius: 0.7rem;
+  }
+  .faq-item {
+    padding: 0.7rem 0.5rem 0.7rem 1rem;
+    border-radius: 0.5rem;
+  }
+  .footer-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2em;
+    margin: 0.5em 1em;
+    font-size: 0.98em;
+  }
+}
+
+/* Prevent horizontal scroll and box-sizing issues */
+html, body {
+  overflow-x: hidden;
+}
+*, *::before, *::after {
+  box-sizing: border-box;
+}
