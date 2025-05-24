@@ -16,12 +16,12 @@ const cats = [
   {
     name: 'Amora',
     images: [
-      '/amora-1.JPG',
-      '/amora-2.JPG',
-      '/amora-3.JPG',
-      '/amora-4.JPG',
-      '/amora-5.JPG',
-      '/amora-6.JPG',
+      '/amora-1.webp',
+      '/amora-2.webp',
+      '/amora-3.webp',
+      '/amora-4.webp',
+      '/amora-5.webp',
+      '/amora-6.webp',
     ],
     desc: 'A shy, sweet little kitty who shows her tummy when she wants attention.',
     details: [
@@ -39,11 +39,11 @@ const cats = [
   {
     name: 'Amira',
     images: [
-      '/amira-1.JPG',
-      '/amira-2.JPG',
-      '/amira-3.JPG',
-      '/amira-4.JPG',
-      '/amira-5.JPG',
+      '/amira-1.webp',
+      '/amira-2.webp',
+      '/amira-3.webp',
+      '/amira-4.webp',
+      '/amira-5.webp',
     ],
     desc: 'She\'s our snuggle buddy—able to sleep anywhere and always letting out a little cry when no one\'s around.',
     details: [
@@ -61,12 +61,12 @@ const cats = [
   {
     name: 'Amara',
     images: [
-      '/amara-1.JPG',
-      '/amara-2.JPG',
-      '/amara-3.JPG',
-      '/amara-4.JPG',
-      '/amara-5.JPG',
-      '/amara-6.JPG',
+      '/amara-1.webp',
+      '/amara-2.webp',
+      '/amara-3.webp',
+      '/amara-4.webp',
+      '/amara-5.webp',
+      '/amara-6.webp',
     ],
     desc: 'She\'s the girl with the big appetite: play all day, feast all night!',
     details: [
@@ -86,11 +86,11 @@ const cats = [
 const parents = {
   mother: {
     name: 'Mother: Maine Coon',
-    image: '/mother.JPG',
+    image: '/mother.webp',
   },
   father: {
     name: 'Father: Scottish Fold',
-    image: '/father.JPG',
+    image: '/father.webp',
   },
 }
 
@@ -259,43 +259,64 @@ cats.forEach((cat, catIdx) => {
   cat.images.forEach((img, imgIdx) => {
     const selector = `.cat-photo-variant${imgIdx+1}[src="${img}"]`;
     document.querySelectorAll(selector).forEach(photoEl => {
-      photoEl.addEventListener('click', function() {
+      const openLightbox = function() {
         currentCatIdx = catIdx;
         currentImgIdx = imgIdx;
         lightboxModal.style.display = 'flex';
         updateLightbox();
-      });
+      };
+      photoEl.addEventListener('click', openLightbox);
+      photoEl.addEventListener('touchstart', openLightbox);
     });
   });
 });
 
 // Add lightbox to parent images (single image, no slider)
 document.querySelectorAll('.parent img').forEach(img => {
-  img.addEventListener('click', function() {
+  const openParentLightbox = function() {
     currentCatIdx = null;
     currentImgIdx = null;
     lightboxModal.style.display = 'flex';
     lightboxImg.src = this.src;
     prevBtn.style.display = 'none';
     nextBtn.style.display = 'none';
-  });
+  };
+  img.addEventListener('click', openParentLightbox);
+  img.addEventListener('touchstart', openParentLightbox);
 });
 
-closeBtn.onclick = function() {
+// Add event listeners to highlight images (main cat photo)
+document.querySelectorAll('.highlight-photo').forEach((el, catIdx) => {
+  const openHighlightLightbox = function() {
+    currentCatIdx = catIdx;
+    currentImgIdx = 0;
+    lightboxModal.style.display = 'flex';
+    updateLightbox();
+  };
+  el.addEventListener('click', openHighlightLightbox);
+  el.addEventListener('touchstart', openHighlightLightbox);
+});
+
+const closeLightbox = function() {
   lightboxModal.style.display = 'none';
   lightboxImg.src = '';
   currentCatIdx = null;
   currentImgIdx = null;
 };
+closeBtn.onclick = closeLightbox;
+closeBtn.addEventListener('touchstart', function(e) { e.preventDefault(); closeLightbox(); });
 
 lightboxModal.onclick = function(e) {
   if (e.target === lightboxModal) {
-    lightboxModal.style.display = 'none';
-    lightboxImg.src = '';
-    currentCatIdx = null;
-    currentImgIdx = null;
+    closeLightbox();
   }
 };
+lightboxModal.addEventListener('touchstart', function(e) {
+  if (e.target === lightboxModal) {
+    e.preventDefault();
+    closeLightbox();
+  }
+});
 
 prevBtn.onclick = function(e) {
   e.stopPropagation();
@@ -304,6 +325,14 @@ prevBtn.onclick = function(e) {
     updateLightbox();
   }
 };
+prevBtn.addEventListener('touchstart', function(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  if (currentCatIdx !== null && currentImgIdx > 0) {
+    currentImgIdx--;
+    updateLightbox();
+  }
+});
 
 nextBtn.onclick = function(e) {
   e.stopPropagation();
@@ -312,6 +341,14 @@ nextBtn.onclick = function(e) {
     updateLightbox();
   }
 };
+nextBtn.addEventListener('touchstart', function(e) {
+  e.stopPropagation();
+  e.preventDefault();
+  if (currentCatIdx !== null && currentImgIdx < cats[currentCatIdx].images.length - 1) {
+    currentImgIdx++;
+    updateLightbox();
+  }
+});
 
 // Also allow arrow key navigation
 window.addEventListener('keydown', function(e) {
