@@ -1,6 +1,4 @@
 import './style.css'
-import 'aos/dist/aos.css';
-import AOS from 'aos';
 
 const detailIcons = {
   'Born': 'calendar',
@@ -330,4 +328,4 @@ window.addEventListener('keydown', function(e) {
   }
 });
 
-AOS.init();
+window.AOS.init();
