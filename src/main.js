@@ -365,4 +365,6 @@ window.addEventListener('keydown', function(e) {
   }
 });
 
-window.AOS.init();
+document.addEventListener('DOMContentLoaded', function() {
+  window.AOS.init();
+});

@@ -667,3 +667,9 @@ html, body {
 *, *::before, *::after {
   box-sizing: border-box;
 }
+
+@media (max-width: 600px) {
+  .site-title {
+    font-size: 2.1rem;
+  }
+}
